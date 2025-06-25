@@ -12,12 +12,16 @@ class datosPersonales:
         }
     
 class personalDomestico(datosPersonales):
-    def __init__(self, nombreCompleto, cuil, modalidad="", horasTrabajadas=0, categoria="", antiguedad=0):
+    def __init__(self, nombreCompleto, cuil, modalidad="", horasTrabajadas=None, antiguedad=0):
+        """
+        modalidad: "mensual_con_retiro", "mensual_sin_retiro" o "por_hora"
+        antiguedad: en años (int)
+        horasTrabajadas: si modalidad es "por_hora" (int), si es None, no se aplica
+        """
         super().__init__(nombreCompleto, cuil)
-        self.categoria = categoria
-        self.modalidad = modalidad
-        self.antiguedad = antiguedad
-        self.horasTrabajadas = horasTrabajadas
+        self.modalidad = modalidad.lower()      
+        self.antiguedad = antiguedad            
+        self.horasTrabajadas = horasTrabajadas  
 
 class empleador(datosPersonales):
     def __init__(self, nombreCompleto, cuil):
