@@ -1,5 +1,4 @@
 from tkinter import messagebox
-from datosPersonales import personalDomestico
 
 def calcular_sueldo(self):
     modalidad = self.empleado.modalidad
@@ -7,10 +6,12 @@ def calcular_sueldo(self):
     antiguedad = self.empleado.antiguedad
 
     if modalidad not in self.montos:
+        messagebox.showerror("Error", "Modalidad de pago no válida.")
         return None
 
     if modalidad == "por_hora":
         if horas is None or horas <= 0:
+            messagebox.showwarning("Advertencia", "Las horas trabajadas deben ser mayores a 0.")
             return None
         sueldo_base = self.montos["por_hora"] * horas
     else:
@@ -18,7 +19,7 @@ def calcular_sueldo(self):
 
     extra_antiguedad = sueldo_base * (antiguedad * 0.01)
     aporte = self.calcular_aporte()
-    total_descuentos = sum(monto for concepto, monto in self.descuentos)
+    total_descuentos = sum(monto for _, monto in self.descuentos)
     sueldo_final = sueldo_base + extra_antiguedad + aporte - total_descuentos
 
     return {
