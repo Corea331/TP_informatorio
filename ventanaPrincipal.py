@@ -12,7 +12,7 @@ class VentanaPrincipal:
     def __init__(self, root):
         self.root = root
         self.root.title("Calculadora de Sueldos - Personal Doméstico")
-        self.root.geometry("800x600")
+        self.root.geometry("550x900")
 
         # Agregar menú, reloj y scrollbar
         agregar_menu(self.root)
