@@ -91,7 +91,6 @@ class VentanaPrincipal:
 
         # Botones de acción
         tk.Button(self.frame_con_scroll, text="Calcular Sueldo", command=self.boton_calcular).grid(row=fila, column=0, padx=10, pady=5)
-        tk.Button(self.frame_con_scroll, text="Guardar Datos", command=self.guardar_datos).grid(row=fila, column=1, padx=10, pady=5)
         fila += 1
         tk.Button(self.frame_con_scroll, text="Salir", command=self.boton_salir).grid(row=fila, column=0, padx=10, pady=5)
         fila += 1
