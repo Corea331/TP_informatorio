@@ -5,6 +5,8 @@ from utilidades.reloj import crear_reloj, obtener_mes_anio
 from utilidades.scrollbar import crear_area_con_scroll
 from datosPersonales import personalDomestico
 from datosPago import DatosPago
+#llame a la funcion calcular sueldo desde el archivo caluladora.py
+from caluladora import calcular_sueldo
 from exelManager import crear_archivo_excel
 import os
 
@@ -112,27 +114,28 @@ class VentanaPrincipal:
     def boton_calcular(self):
         try:
             empleado = personalDomestico(
-                nombre=self.entradas["nombre"].get(),
-                apellido=self.entradas["apellido"].get(),
-                cuil=self.entradas["cuil"].get(),
-                dni=self.entradas["dni"].get(),
-                domicilio=self.entradas["domicilio"].get(),
-                telefono=self.entradas["teléfono"].get(),
-                email=self.entradas["email"].get(),
+                #Renombre algunas variables porque estaban ocacionando conflictos
+                nombre=self.campos_entrada["nombre"].get(),
+                apellido=self.campos_entrada["apellido"].get(),
+                cuil=self.campos_entrada["cuil"].get(),
+                dni=self.campos_entrada["dni"].get(),
+                domicilio=self.campos_entrada["domicilio"].get(),
+                telefono=self.campos_entrada["telefono"].get(),
+                #email=self.campos_entrada["email"].get(),
                 modalidad=self.modalidad_var.get(),
-                horasTrabajadas=int(self.horas_entry.get()),
-                antiguedad=int(self.antiguedad_entry.get())
+                horasTrabajadas=int(self.horas_entrada.get()),
+                antiguedad=int(self.antiguedad_entrada.get())
             )
             empleado.fecha_ingreso = self.fecha_ingreso.get()
 
             datos_pago = DatosPago(empleado)
             for desc in self.descuentos:
                 datos_pago.descuentos.append(desc)
+            #implemente la funcion calcular sueldo y le pase la instancia "datos_pago"
+            resultado = calcular_sueldo(datos_pago)
 
-            resultado = datos_pago.calcular_sueldo()
-
-            if self.aplicar_aumentos.get():
-                porcentaje = float(self.porcentaje_aumento_entry.get())
+            if self.aplicar_aumento.get():
+                porcentaje = float(self.valor_aumento.get())
                 resultado["sueldo_final"] += resultado["sueldo_final"] * (porcentaje / 100)
 
             self.datos_pago = datos_pago

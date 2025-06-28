@@ -27,7 +27,8 @@ class DatosPago:
             raise ValueError("El monto del descuento no puede ser negativo.")
         
     def calcular_aporte(self):
-        h = self.empleado.horas_trabajadas
+        #renombre de horas_trabajadas a horasTrabajadas porque no coincidia con la clase "personalDomestico"
+        h = self.empleado.horasTrabajadas
         if h is None or self.empleado.modalidad == "por_hora":
             return 0
         if h <= 12:
