@@ -14,7 +14,7 @@ class VentanaPrincipal:
     def __init__(self, root):
         self.root = root
         self.root.title("Calculadora de Sueldos - Personal Doméstico")
-        self.root.geometry("550x900")
+        self.root.geometry("415x640")
 
         # Agregar menú, reloj y scrollbar
         agregar_menu(self.root)
@@ -33,68 +33,68 @@ class VentanaPrincipal:
         self.campos_entrada = {}
 
         for i, campo in  enumerate(campos):
-            tk.Label(self.frame_con_scroll, text=campo + ":").grid(row=i, column=0,sticky="e", padx=10, pady=5)
-            entrada = tk.Entry(self.frame_con_scroll, width=40)
-            entrada.grid(row=i, column=1, padx=10, pady=5)
+            ttk.Label(self.frame_con_scroll, text=campo + ":").grid(row=i,sticky="w", column=0, padx=(10,0), pady=2)
+            entrada = ttk.Entry(self.frame_con_scroll, width=40)
+            entrada.grid(row=i,column=0,sticky="w", padx=(120,0), pady=2)
             self.campos_entrada[campo.lower()] = entrada
 
         fila = len(campos)
 
         # Fecha de ingreso
-        tk.Label(self.frame_con_scroll, text="Fecha de Ingreso (dd/mm/aaaa):").grid(row=fila, column=0, sticky="e", padx=10, pady=5)
-        self.fecha_ingreso = tk.Entry(self.frame_con_scroll, width=20)
-        self.fecha_ingreso.grid(row=fila, column=1, padx=10, pady=5)
+        ttk.Label(self.frame_con_scroll, text="Fecha de Ingreso (dd/mm/aaaa):").grid(row=fila,columnspan=2, column=0, sticky="w", padx=10, pady=5)
+        self.fecha_ingreso = ttk.Entry(self.frame_con_scroll, width=20)
+        self.fecha_ingreso.grid(row=fila,sticky="w", column=0, padx=(240,31), pady=8)
         fila += 1
 
         # Modalidad de pago
-        tk.Label(self.frame_con_scroll, text="Modalidad:").grid(row=fila, column=0, sticky="e", padx=10, pady=5)
+        ttk.Label(self.frame_con_scroll, text="Modalidad:").grid(row=fila, column=0, sticky="w", padx=10, pady=5)
         self.modalidad_var = tk.StringVar()
         modalidades = [("Mensual sin retiro", "mensual_sin_retiro"), 
                         ("Mensual con retiro", "mensual_con_retiro"), 
                         ("Por hora (menos 23 horas semanales)", "por_hora")]
         for i, (texto, valor) in enumerate(modalidades):
-            tk.Radiobutton(self.frame_con_scroll, text=texto, variable=self.modalidad_var, value=valor).grid(row=fila+i, column=1, sticky="w", padx=10, pady=5)
+            ttk.Radiobutton(self.frame_con_scroll, text=texto, variable=self.modalidad_var, value=valor).grid(row=fila+i, column=0, sticky="w", padx=(100,0), pady=5)
         fila += len(modalidades)
 
         # Horas trabajadas
-        tk.Label(self.frame_con_scroll, text="Horas trabajadas:").grid(row=fila, column=0, sticky="e", padx=10, pady=5)
-        self.horas_entrada = tk.Entry(self.frame_con_scroll, width=20)
-        self.horas_entrada.grid(row=fila, column=1, padx=10, pady=5)
+        ttk.Label(self.frame_con_scroll, text="Horas trabajadas:").grid(row=fila, column=0, sticky="w", padx=10, pady=5)
+        self.horas_entrada = ttk.Entry(self.frame_con_scroll, width=20)
+        self.horas_entrada.grid(row=fila, column=0, padx=(95,0), pady=5)
         fila += 1
 
         # Antigüedad
-        tk.Label(self.frame_con_scroll, text="Antigüedad (en años):").grid(row=fila, column=0, sticky="e", padx=10, pady=5)
-        self.antiguedad_entrada = tk.Entry(self.frame_con_scroll, width=20)
-        self.antiguedad_entrada.grid(row=fila, column=1, padx=10, pady=5)
+        ttk.Label(self.frame_con_scroll, text="Antigüedad (en años):").grid(row=fila, column=0, sticky="w", padx=10, pady=5)
+        self.antiguedad_entrada = ttk.Entry(self.frame_con_scroll, width=20)
+        self.antiguedad_entrada.grid(row=fila, column=0, padx=(95,0), pady=5)
         fila += 1
 
         # Aumentos paritarios
         self.aplicar_aumento = tk.BooleanVar(value=True)
-        tk.Checkbutton(self.frame_con_scroll, text="Aplicar aumentos paritarios", variable=self.aplicar_aumento).grid(row=fila, column=1, sticky="w", padx=10, pady=5)
+        ttk.Checkbutton(self.frame_con_scroll, text="Aplicar aumentos paritarios", variable=self.aplicar_aumento).grid(row=fila, column=0, sticky="w", padx=10, pady=5)
         fila += 1
 
         # Valor del aumento en caso de aplicar
-        tk.Label(self.frame_con_scroll, text="Valor del aumento:").grid(row=fila, column=0, sticky="e", padx=10, pady=5)
-        self.valor_aumento = tk.Entry(self.frame_con_scroll, width=20)
+        ttk.Label(self.frame_con_scroll, text="Valor del aumento:").grid(row=fila, column=0, sticky="w", padx=10, pady=5)
+        self.valor_aumento = ttk.Entry(self.frame_con_scroll, width=20)
         self.valor_aumento.insert(0, "0")  # Valor por defecto
-        self.valor_aumento.grid(row=fila, column=1, padx=10, pady=5)
+        self.valor_aumento.grid(row=fila, column=0, padx=(95,0), pady=5)
         fila += 1
 
         # Agregar descuentos
-        tk.Label(self.frame_con_scroll, text="Descuentos (nombre y monto):").grid(row=fila, column=0, sticky="e", columnspan=2, padx=10, pady=5)
+        ttk.Label(self.frame_con_scroll, text="Descuentos (nombre y monto):").grid(row=fila, column=0, sticky="w", columnspan=2, padx=10, pady=5)
         fila += 1
-        self.descuento_nombre = tk.Entry(self.frame_con_scroll)
-        self.descuento_monto = tk.Entry(self.frame_con_scroll)
-        self.descuento_nombre.grid(row=fila, column=0, padx=10, pady=5)
-        self.descuento_monto.grid(row=fila, column=1, padx=10, pady=5)
+        self.descuento_nombre = ttk.Entry(self.frame_con_scroll)
+        self.descuento_monto = ttk.Entry(self.frame_con_scroll)
+        self.descuento_nombre.grid(row=fila,sticky="w", column=0, padx=(10,0), pady=5)
+        self.descuento_monto.grid(row=fila, column=0, padx=(40,0), pady=5)
         fila += 1
-        tk.Button(self.frame_con_scroll, text="Agregar Descuento", command=self.agregar_descuento).grid(row=fila, column=0, padx=10, pady=5)
+        ttk.Button(self.frame_con_scroll, text="Agregar Descuento", command=self.agregar_descuento).grid(row=fila, column=0, padx=10, pady=5)
         fila += 1
 
         # Botones de acción
-        tk.Button(self.frame_con_scroll, text="Calcular Sueldo", command=self.boton_calcular).grid(row=fila, column=0, padx=10, pady=5)
+        ttk.Button(self.frame_con_scroll, text="Calcular Sueldo", command=self.boton_calcular).grid(row=fila, column=0, padx=10, pady=5)
         fila += 1
-        tk.Button(self.frame_con_scroll, text="Salir", command=self.boton_salir).grid(row=fila, column=0, padx=10, pady=5)
+        ttk.Button(self.frame_con_scroll, text="Salir", command=self.boton_salir).grid(row=fila, column=0, padx=10, pady=5)
         fila += 1
 
     def agregar_descuento(self):
@@ -173,5 +173,40 @@ class VentanaPrincipal:
 
 if __name__ == "__main__":
     root = tk.Tk()
+    #Confiuracion de los temas y estilos
+    #cambie el "column" de algunos campos y los separe usando "padx"
+    #porque si no qudaban muy separados
+    styles = ttk.Style(root)
+    styles.theme_use = ('clam') 
+    styles.configure('TFrame',
+                background="#000000",
+                borderwidth=0)
+    styles.configure('TButton',
+                background="#71a8fc",
+                foreground="#000000",
+                padding=6,
+                relief='flat')
+    styles.configure('TLabel',
+                background="#def3f3",
+                foreground="#000",
+                font=('Arial', 12),
+                padding=0
+                )
+    styles.configure('TEntry',
+                background='#def3f3',
+                foreground='#000',
+                )
+    styles.configure('TCheckbutton',
+                background="#def3f3",
+                foreground="#000000",
+                font=('Arial', 12),)
+    styles.configure('TRadiobutton',
+                background="#def3f3",
+                foreground="#000000",
+                font=('Arial', 12),)
+    styles.configure('TScrollbar',
+                background="#def3f3",)
+    
+    root.resizable(False, False)
     app = VentanaPrincipal(root)
     root.mainloop()

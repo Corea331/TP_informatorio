@@ -3,9 +3,11 @@ from tkinter import ttk
 
 
 def crear_area_con_scroll(ventana_padre):
-    canvas = tk.Canvas(ventana_padre)
-    scrollbar = ttk.Scrollbar(ventana_padre, orient="vertical", command=canvas.yview)
+    canvas = tk.Canvas(ventana_padre, bg="#def3f3", highlightthickness=0)
+    scrollbar = ttk.Scrollbar(ventana_padre, orient="vertical", command=canvas.yview,)
     frame_interno = tk.Frame(canvas)
+    #color de fondo para el recuadro donde se encuentran los campos de entrada
+    frame_interno.configure(bg="#def3f3")
 
     frame_interno.bind(
         "<Configure>",

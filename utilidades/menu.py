@@ -5,7 +5,7 @@ import os
 
 def agregar_menu(ventana_padre):
     barra_menu = tk.Menu(ventana_padre)
-    ventana_padre.config(menu=barra_menu)
+    ventana_padre.config(menu=barra_menu, bg="#def3f3")
 
     menu_archivo = tk.Menu(barra_menu, tearoff=0)
     menu_archivo.add_cascade(label="Archivo", menu=menu_archivo)
